@@ -89,6 +89,19 @@ Write-Host "Dockerfile updated to use PHP version $phpMajorMinor-fpm" -Foregroun
 
 
 
+# Mettre à jour docker-compose.yaml
+$dockerComposePath = "$HOME\$nameProject\docker-compose.yaml"
+if (Test-Path $dockerComposePath) {
+    (Get-Content $dockerComposePath) -replace 'MYSQL_DATABASE: \w+', "MYSQL_DATABASE: ${nameProject}_db" | Set-Content $dockerComposePath
+    Write-Host "docker-compose.yaml updated with database name ${nameProject}_db" -ForegroundColor Green
+} else {
+    Write-Host "docker-compose.yaml not found. Ensure you are in the correct directory." -ForegroundColor Red
+}
+
+
+
+
+
 # Créer les dossiers requis
 mkdir -p .\docker\nginx\conf.d
 
