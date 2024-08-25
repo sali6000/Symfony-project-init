@@ -66,6 +66,29 @@ Remove-Item .\compose.override.yaml, .\compose.yaml -Force
 Invoke-RestMethod -Uri https://github.com/sali6000/Symfony-project-init/raw/main/Dockerfile -OutFile .\Dockerfile
 Invoke-RestMethod -Uri https://github.com/sali6000/Symfony-project-init/raw/main/docker-compose.yaml -OutFile .\docker-compose.yaml
 
+# Étape 1: Obtenir la version de PHP installée via Scoop
+$phpVersionOutput = & "C:\Users\sali6000\scoop\apps\php\current\php.exe" -v
+$phpVersion = $phpVersionOutput | Select-String -Pattern "^PHP (\d+\.\d+\.\d+)" | ForEach-Object { $_.Matches[0].Groups[1].Value }
+
+# Étape 2: Formater la version pour Dockerfile (ex: 8.3.10 -> 8.3)
+$phpMajorMinor = $phpVersion -replace '(\d+\.\d+)\.\d+', '$1'
+
+# Étape 3: Chemin du Dockerfile
+$dockerfilePath = "C:\Path\To\Your\Project\Dockerfile"
+
+# Étape 4: Lire le contenu du Dockerfile
+$dockerfileContent = Get-Content $dockerfilePath
+
+# Étape 5: Modifier la ligne `FROM php:...`
+$dockerfileContent = $dockerfileContent -replace 'FROM php:\d+\.\d+-fpm', "FROM php:$phpMajorMinor-fpm"
+
+# Étape 6: Écrire les modifications dans le Dockerfile
+Set-Content -Path $dockerfilePath -Value $dockerfileContent
+
+Write-Host "Dockerfile updated to use PHP version $phpMajorMinor-fpm" -ForegroundColor Green
+
+
+
 # Créer les dossiers requis
 mkdir -p .\docker\nginx\conf.d
 
@@ -73,6 +96,8 @@ mkdir -p .\docker\nginx\conf.d
 Invoke-RestMethod -Uri https://github.com/sali6000/Symfony-project-init/raw/main/nginx.conf -OutFile .\docker\nginx\nginx.conf
 Invoke-RestMethod -Uri https://github.com/sali6000/Symfony-project-init/raw/main/default.conf -OutFile .\docker\nginx\conf.d\default.conf
 
+
+
 # Ouvrir le projet dans VS Code
-code ./$nameProject
+code $HOME/$nameProject
 
