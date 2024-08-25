@@ -120,26 +120,46 @@ composer require symfony/webpack-encore-bundle
 Write-Host "Veuillez lancer Docker Desktop (Windows) et ensuite revenir sur cette fenêtre pour continuer." -ForegroundColor Cyan
 Write-Host "Appuyez sur ENTER lorsque c'est fait (Fenêtre en attente...)" -ForegroundColor Cyan
 
-# Attendre que l'utilisateur appuie sur Enter pour continuer
-$null = Read-Host
+# Vérifier si le service Docker est démarré
+$service = Get-Service -Name com.docker.service
 
-# Vérifier que Docker est prêt (Docker Desktop doit être lancé et opérationnel)
-$dockerRunning = $false
-while (-not $dockerRunning) {
+if ($service.Status -eq 'Stopped') {
+    Write-Host "Le service Docker Desktop est arrêté. Tentative de démarrage..." -ForegroundColor Yellow
     try {
-        # Tester si Docker est prêt en vérifiant les informations sur Docker
-        $dockerInfo = docker info 2>&1
-        
-        # Si la commande `docker info` retourne une chaîne vide ou un résultat spécifique en cas d'erreur, on la traite ici
-        if ($dockerInfo -notmatch "Cannot connect to the Docker daemon" -and $dockerInfo -notmatch "error during connect") {
+        Start-Service -Name com.docker.service
+        Write-Host "Service Docker Desktop démarré avec succès." -ForegroundColor Green
+    } catch {
+        Write-Host "Échec du démarrage du service Docker Desktop : $_" -ForegroundColor Red
+        exit 1
+    }
+} else {
+    Write-Host "Le service Docker Desktop est déjà en cours d'exécution." -ForegroundColor Green
+}
+
+# Attendre que Docker soit prêt
+$dockerRunning = $false
+$retryCount = 0
+$maxRetries = 5
+
+while (-not $dockerRunning -and $retryCount -lt $maxRetries) {
+    try {
+        $dockerInfo = docker version --format '{{.Server.Version}}' 2>&1
+        if ($dockerInfo) {
+            Write-Host "Docker est prêt avec la version : $dockerInfo" -ForegroundColor Green
             $dockerRunning = $true
         } else {
-            throw "Docker daemon n'est pas prêt."
+            throw "Docker n'est pas prêt."
         }
     } catch {
-        Write-Host "Docker n'est pas encore prêt. Assurez-vous que Docker Desktop est lancé. Nouvelle tentative de connexion dans 5 secondes" -ForegroundColor Yellow
+        $retryCount++
+        Write-Host "Docker n'est pas encore prêt. Nouvelle tentative de connexion dans 5 secondes (Tentative $retryCount/$maxRetries)." -ForegroundColor Yellow
         Start-Sleep -Seconds 5
     }
+}
+
+if (-not $dockerRunning) {
+    Write-Host "Erreur : Impossible de se connecter à Docker après $maxRetries tentatives." -ForegroundColor Red
+    exit 1
 }
 
 Write-Host "Docker Desktop est prêt. Continuation du script..." -ForegroundColor Green
