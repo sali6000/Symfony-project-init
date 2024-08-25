@@ -4,6 +4,7 @@ Pour utiliser ce projet, assurez-vous d'avoir les éléments suivants installés
 
 Windows
 Visual Studio Code (avec PowerShell intégré)
+Docker Desktop
 Présentation
 Ce script PowerShell permet d'initialiser un environnement global complet et de préparer un projet Symfony standard avec Docker. Il installe automatiquement toutes les dépendances nécessaires, configurées pour un environnement de développement moderne.
 
