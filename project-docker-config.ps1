@@ -117,7 +117,7 @@ git commit -m "Ajout des fichiers de configuration dans le dépôt Git"
 composer require symfony/webpack-encore-bundle
 
 # Afficher le message à l'utilisateur
-Write-Host "Veuillez lancer Docker Desktop (Windows) et ensuite revenir sur cette fenêtre pour continuer." -ForegroundColor Cyan
+Write-Host "Veuillez lancer MANUELLEMENT Docker Desktop (Windows) et ensuite revenir sur cette fenêtre pour continuer." -ForegroundColor Cyan
 Write-Host "Appuyez sur ENTER lorsque c'est fait (Fenêtre en attente...)" -ForegroundColor Cyan
 
 # Vérifier si le service Docker est démarré
@@ -130,7 +130,6 @@ if ($service.Status -eq 'Stopped') {
         Write-Host "Service Docker Desktop démarré avec succès." -ForegroundColor Green
     } catch {
         Write-Host "Échec du démarrage du service Docker Desktop : $_" -ForegroundColor Red
-        exit 1
     }
 } else {
     Write-Host "Le service Docker Desktop est déjà en cours d'exécution." -ForegroundColor Green
