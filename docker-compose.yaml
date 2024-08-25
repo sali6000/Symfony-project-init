@@ -1,0 +1,51 @@
+services:
+  # Service PHP
+  php:
+    build: .
+    volumes:
+      - .:/var/www/html
+    networks:
+      - symfony
+
+  # Service MySQL
+  mysql:
+    image: mysql:8.0.39
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpassword
+      MYSQL_DATABASE: bevente_db
+      MYSQL_USER: user
+      MYSQL_PASSWORD: userpassword
+    volumes:
+      - db_data:/var/lib/mysql
+    networks:
+      - symfony
+
+  # Service Nginx
+  nginx:
+    image: nginx:alpine
+    volumes:
+      - ./public:/var/www/html/public
+      - ./docker/nginx/conf.d/default.conf:/etc/nginx/conf.d/default.conf  # Notez bien l'emplacement ici
+    ports:
+      - "8080:80"
+    networks:
+      - symfony
+    depends_on:
+      - php
+
+  # Service PhpMyAdmin
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    environment:
+      PMA_HOST: mysql
+      MYSQL_ROOT_PASSWORD: rootpassword
+    ports:
+      - "8081:80"
+    networks:
+      - symfony
+
+networks:
+  symfony:
+
+volumes:
+  db_data:
