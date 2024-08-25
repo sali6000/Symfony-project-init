@@ -4,11 +4,12 @@ $currentEmail = git config --global user.email
 
 # Afficher les valeurs actuelles à l'utilisateur
 Write-Host "Current Git user.name: $currentName" -ForegroundColor Yellow
-Write-Host "Current Git user.email: $currentEmail" -ForegroundColor Yellow
+
 
 # Demander si l'utilisateur veut modifier user.name
-$modifyName = Read-Host "Do you want to change the Git user.name? (yes/no)"
-if ($modifyName -eq "yes") {
+Write-Host "Do you want to change the Git user.name $currentName ? (y/n)" -ForegroundColor Yellow
+$modifyName = Read-Host
+if ($modifyName -eq "y") {
     Write-Host "Please enter the new Git user.name" -ForegroundColor Cyan
     $username = Read-Host
     git config --global user.name $username
@@ -18,8 +19,9 @@ if ($modifyName -eq "yes") {
 }
 
 # Demander si l'utilisateur veut modifier user.email
-$modifyEmail = Read-Host "Do you want to change the Git user.email? (yes/no)"
-if ($modifyEmail -eq "yes") {
+Write-Host "Do you want to change the Git user.email $currentEmail ? (y/n)" -ForegroundColor Yellow
+$modifyEmail = Read-Host
+if ($modifyEmail -eq "y") {
     Write-Host "Please enter the new Git user.email" -ForegroundColor Cyan
     $mail = Read-Host
     git config --global user.email $mail
