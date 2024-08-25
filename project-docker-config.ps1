@@ -1,10 +1,53 @@
-$username = Read-Host "Please enter the username will be used for git ex: Jonathan, then press ENTER" -ForegroundColor Cyan
-$mail = Read-Host "Please enter the mail will be used for git ex: jonathan.tom@gmail.com, then press ENTER" -ForegroundColor Cyan
+# Récupérer les valeurs actuelles de user.name et user.email
+$currentName = git config --global user.name
+$currentEmail = git config --global user.email
 
-git config --global user.name $username
-git config --global user.email $mail
+# Afficher les valeurs actuelles à l'utilisateur
+Write-Host "Current Git user.name: $currentName" -ForegroundColor Yellow
+Write-Host "Current Git user.email: $currentEmail" -ForegroundColor Yellow
 
-$nameProject = Read-Host "Please enter the name of project ex: myProject, this name will be used too for DB like myProject_db, then press ENTER" -ForegroundColor Cyan
+# Demander si l'utilisateur veut modifier user.name
+$modifyName = Read-Host "Do you want to change the Git user.name? (yes/no)"
+if ($modifyName -eq "yes") {
+    Write-Host "Please enter the new Git user.name" -ForegroundColor Cyan
+    $username = Read-Host
+    git config --global user.name $username
+    Write-Host "Git user.name updated to $username" -ForegroundColor Green
+} else {
+    Write-Host "Git user.name remains as $currentName" -ForegroundColor Green
+}
+
+# Demander si l'utilisateur veut modifier user.email
+$modifyEmail = Read-Host "Do you want to change the Git user.email? (yes/no)"
+if ($modifyEmail -eq "yes") {
+    Write-Host "Please enter the new Git user.email" -ForegroundColor Cyan
+    $mail = Read-Host
+    git config --global user.email $mail
+    Write-Host "Git user.email updated to $mail" -ForegroundColor Green
+} else {
+    Write-Host "Git user.email remains as $currentEmail" -ForegroundColor Green
+}
+
+# Demander le nom du projet
+Write-Host "Please enter the name of the project (e.g., myProject). This name will also be used for the DB (e.g., myProject_db). Press ENTER after entering." -ForegroundColor Cyan
+$nameProject = Read-Host
+
+# Boucle de confirmation
+$confirmation = $false
+while (-not $confirmation) {
+    Write-Host "You entered: $nameProject. Is this correct? (y/n)" -ForegroundColor Yellow
+    $response = Read-Host
+    
+    if ($response -eq "y") {
+        $confirmation = $true
+        Write-Host "Project name confirmed as $nameProject" -ForegroundColor Green
+    } elseif ($response -eq "n") {
+        Write-Host "Please enter the name of the project again:" -ForegroundColor Cyan
+        $nameProject = Read-Host
+    } else {
+        Write-Host "Please answer with 'y' or 'n'." -ForegroundColor Red
+    }
+}
 
 symfony new $nameProject --webapp
 # webapp inclut par défaut:
