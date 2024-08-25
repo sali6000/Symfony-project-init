@@ -67,14 +67,14 @@ Invoke-RestMethod -Uri https://github.com/sali6000/Symfony-project-init/raw/main
 Invoke-RestMethod -Uri https://github.com/sali6000/Symfony-project-init/raw/main/docker-compose.yaml -OutFile .\docker-compose.yaml
 
 # Étape 1: Obtenir la version de PHP installée via Scoop
-$phpVersionOutput = & "C:\Users\sali6000\scoop\apps\php\current\php.exe" -v
+$phpVersionOutput = & "$HOME\scoop\apps\php\current\php.exe" -v
 $phpVersion = $phpVersionOutput | Select-String -Pattern "^PHP (\d+\.\d+\.\d+)" | ForEach-Object { $_.Matches[0].Groups[1].Value }
 
 # Étape 2: Formater la version pour Dockerfile (ex: 8.3.10 -> 8.3)
 $phpMajorMinor = $phpVersion -replace '(\d+\.\d+)\.\d+', '$1'
 
 # Étape 3: Chemin du Dockerfile
-$dockerfilePath = "C:\Path\To\Your\Project\Dockerfile"
+$dockerfilePath = "$HOME\$nameProject\Dockerfile"
 
 # Étape 4: Lire le contenu du Dockerfile
 $dockerfileContent = Get-Content $dockerfilePath
