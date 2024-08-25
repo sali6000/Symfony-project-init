@@ -1,3 +1,9 @@
+# Arrêter l'exécution en cas d'erreur
+$ErrorActionPreference = "Stop"
+
+# Activer la sortie détaillée
+$VerbosePreference = "Continue"
+
 # Se placer dans le répertoire de l'utilisateur
 cd $HOME
 
@@ -17,9 +23,9 @@ if (Get-Command scoop -ErrorAction SilentlyContinue) {
 Write-Output "Ajout du bucket 'extras'..."
 scoop bucket add extras
 
-# Installer les outils nécessaires
-Write-Output "Installation de PHP, Symfony CLI, Composer, Docker, Git, et Node.js..."
-scoop install php symfony-cli composer docker git nodejs
+# Installation avec suivi des détails
+Write-Host "Installation de PHP, Symfony CLI, Composer, Docker, Git, et Node.js..." -ForegroundColor Cyan
+scoop install php symfony-cli composer docker git nodejs | Write-Host
 
 # Définir le chemin vers le dossier PHP dans Scoop
 $phpPath = (Get-ChildItem "$env:USERPROFILE\scoop\apps\php\" -Directory | Sort-Object Name -Descending | Select-Object -First 1).FullName
