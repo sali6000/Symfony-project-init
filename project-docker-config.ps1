@@ -116,15 +116,8 @@ git commit -m "Ajout des fichiers de configuration dans le dépôt Git"
 # Ajout du Webpack Encore
 composer require symfony/webpack-encore-bundle
 
-# Vérifier si le service Docker est démarré
-$service = Get-Service -Name com.docker.service -ErrorAction SilentlyContinue
-
-if ($null -eq $service -or $service.Status -eq 'Stopped') {
-    Write-Host "Le service Docker Desktop n'est pas démarré. Veuillez démarrer Docker Desktop manuellement et appuyer sur ENTER pour continuer." -ForegroundColor Yellow
-    Read-Host
-} else {
-    Write-Host "Le service Docker Desktop est déjà en cours d'exécution." -ForegroundColor Green
-}
+Write-Host "Veuillez vous assurer que Docker Desktop (windows) est bien lancé avant de passer à la suite. Appuyer sur ENTER pour continuer." -ForegroundColor Red
+Read-Host
 
 # Attendre que Docker soit prêt
 $dockerRunning = $false
@@ -142,8 +135,8 @@ while (-not $dockerRunning -and $retryCount -lt $maxRetries) {
         }
     } catch {
         $retryCount++
-        Write-Host "Docker n'est pas encore prêt. Nouvelle tentative de connexion dans 5 secondes (Tentative $retryCount/$maxRetries)." -ForegroundColor Yellow
-        Start-Sleep -Seconds 5
+        Write-Host "Docker n'est pas encore prêt. Nouvelle tentative de connexion dans 10 secondes (Tentative $retryCount/$maxRetries)." -ForegroundColor Yellow
+        Start-Sleep -Seconds 10
     }
 }
 
@@ -152,8 +145,7 @@ if (-not $dockerRunning) {
     exit 1
 }
 
-Write-Host "Docker Desktop est prêt. Continuation du script..." -ForegroundColor Green
-
+Write-Host "Continuation du script..." -ForegroundColor Green
 
 # Exécuter la commande docker-compose pour construire l'image et lancer les services en arrière-plan
 docker-compose up -d --build
