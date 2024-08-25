@@ -2,10 +2,6 @@
 $currentName = git config --global user.name
 $currentEmail = git config --global user.email
 
-# Afficher les valeurs actuelles à l'utilisateur
-Write-Host "Current Git user.name: $currentName" -ForegroundColor Yellow
-
-
 # Demander si l'utilisateur veut modifier user.name
 Write-Host "Do you want to change the Git user.name $currentName ? (y/n)" -ForegroundColor Yellow
 $modifyName = Read-Host
