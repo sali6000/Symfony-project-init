@@ -17,6 +17,7 @@ scoop bucket add extras
 # Installer les outils nécessaires
 Write-Output "Installation de PHP, Symfony CLI, Composer, Docker, Git, et Node.js..."
 scoop install php symfony-cli composer docker git nodejs
+
 # Définir le chemin vers le dossier PHP dans Scoop
 $phpPath = (Get-ChildItem "$env:USERPROFILE\scoop\apps\php\" -Directory | Sort-Object Name -Descending | Select-Object -First 1).FullName
 
@@ -30,10 +31,13 @@ if (-Not (Test-Path $iniPath) -and (Test-Path $devIniPath)) {
 }
 
 # Activer les extensions openssl et curl dans php.ini
-(gc $iniPath) -replace ';extension=openssl', 'extension=openssl' |
-              -replace ';extension=curl', 'extension=curl' |
-              Set-Content $iniPath
+(Get-Content $iniPath) | ForEach-Object {
+    $_ -replace ';extension=openssl', 'extension=openssl' `
+       -replace ';extension=curl', 'extension=curl'
+} | Set-Content $iniPath
+
 Write-Output "Activated openssl and curl extensions in php.ini"
+
 
 # Vérifier si toutes les installations ont réussi
 if ($LASTEXITCODE -eq 0) {
