@@ -127,16 +127,23 @@ $null = Read-Host
 $dockerRunning = $false
 while (-not $dockerRunning) {
     try {
-        # Tester si Docker est prêt en vérifiant les conteneurs
-        docker info > $null 2>&1
-        $dockerRunning = $true
+        # Tester si Docker est prêt en vérifiant les informations sur Docker
+        $dockerInfo = docker info 2>&1
+        
+        # Si la commande `docker info` retourne une chaîne vide ou un résultat spécifique en cas d'erreur, on la traite ici
+        if ($dockerInfo -notmatch "Cannot connect to the Docker daemon" -and $dockerInfo -notmatch "error during connect") {
+            $dockerRunning = $true
+        } else {
+            throw "Docker daemon n'est pas prêt."
+        }
     } catch {
-        Write-Host "Docker n'est pas encore prêt. Assurez-vous que Docker Desktop est lancé. Nouvelle tentative de connection dans 5 secondes" -ForegroundColor Yellow
+        Write-Host "Docker n'est pas encore prêt. Assurez-vous que Docker Desktop est lancé. Nouvelle tentative de connexion dans 5 secondes" -ForegroundColor Yellow
         Start-Sleep -Seconds 5
     }
 }
 
 Write-Host "Docker Desktop est prêt. Continuation du script..." -ForegroundColor Green
+
 
 # Exécuter la commande docker-compose pour construire l'image et lancer les services en arrière-plan
 docker-compose up -d --build
