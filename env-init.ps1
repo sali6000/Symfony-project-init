@@ -1,3 +1,6 @@
+# Se placer dans le répertoire de l'utilisateur
+cd $HOME
+
 # Permettre l'exécution des scripts PowerShell
 Set-ExecutionPolicy RemoteSigned -Scope CurrentUser
 
