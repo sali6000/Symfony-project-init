@@ -109,7 +109,42 @@ mkdir -p .\docker\nginx\conf.d
 Invoke-RestMethod -Uri https://github.com/sali6000/Symfony-project-init/raw/main/nginx.conf -OutFile .\docker\nginx\nginx.conf
 Invoke-RestMethod -Uri https://github.com/sali6000/Symfony-project-init/raw/main/default.conf -OutFile .\docker\nginx\conf.d\default.conf
 
+# Ajout des fichiers de configs mis à jours dans le dépôt Git
+git add .
+git commit -m "Ajout des fichiers de configuration dans le dépôt Git"
 
+# Ajout du Webpack Encore
+composer require symfony/webpack-encore-bundle
+
+# Afficher le message à l'utilisateur
+Write-Host "Veuillez lancer Docker Desktop (Windows) et ensuite revenir sur cette fenêtre pour continuer." -ForegroundColor Cyan
+Write-Host "Appuyez sur ENTER lorsque c'est fait (Fenêtre en attente...)" -ForegroundColor Cyan
+
+# Attendre que l'utilisateur appuie sur Enter pour continuer
+$null = Read-Host
+
+# Vérifier que Docker est prêt (Docker Desktop doit être lancé et opérationnel)
+$dockerRunning = $false
+while (-not $dockerRunning) {
+    try {
+        # Tester si Docker est prêt en vérifiant les conteneurs
+        docker info > $null 2>&1
+        $dockerRunning = $true
+    } catch {
+        Write-Host "Docker n'est pas encore prêt. Assurez-vous que Docker Desktop est lancé. Nouvelle tentative de connection dans 5 secondes" -ForegroundColor Yellow
+        Start-Sleep -Seconds 5
+    }
+}
+
+Write-Host "Docker Desktop est prêt. Continuation du script..." -ForegroundColor Green
+
+# Exécuter la commande docker-compose pour construire l'image et lancer les services en arrière-plan
+docker-compose up -d --build
+
+# Exécuter la commande pour créer la base de données
+docker exec -it $nameProject-php-1 php bin/console doctrine:database:create
+
+Write-Host "FIN de l'installation ! Vous pouvez continuer sur la nouvelle fenêtre et fermer celle-çi. Bonne continuation !" -ForegroundColor Green
 
 # Ouvrir le projet dans VS Code
 code $HOME/$nameProject
