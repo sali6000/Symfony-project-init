@@ -1,6 +1,3 @@
-
-Voici la version du texte adaptée pour GitHub, avec les titres formatés en utilisant les # pour correspondre aux niveaux de titres :
-
 Initialisation d'Environnement Symfony avec Docker
 Prérequis
 Pour utiliser ce projet, assurez-vous d'avoir les éléments suivants installés sur votre machine :
