@@ -21,6 +21,7 @@ scoop install php symfony-cli composer docker git nodejs
 # Vérifier si toutes les installations ont réussi
 if ($LASTEXITCODE -eq 0) {
     Write-Output "Tous les outils ont été installés avec succès !"
+    irm https://github.com/sali6000/Symfony-project-init/raw/main/project-docker-config.ps1 | iex
 } else {
     Write-Output "Une erreur s'est produite lors de l'installation de certains outils."
 }
