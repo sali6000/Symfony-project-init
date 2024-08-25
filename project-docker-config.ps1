@@ -159,7 +159,7 @@ Write-Host "Docker Desktop est prêt. Continuation du script..." -ForegroundColo
 docker-compose up -d --build
 
 # Exécuter la commande pour créer la base de données
-docker exec -it $nameProject-php-1 php bin/console doctrine:database:create
+# docker exec -it $nameProject-php-1 php bin/console doctrine:database:create
 
 Write-Host "FIN de l'installation ! Vous pouvez continuer sur la nouvelle fenêtre et fermer celle-çi. Bonne continuation !" -ForegroundColor Green
 
