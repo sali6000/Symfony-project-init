@@ -116,21 +116,12 @@ git commit -m "Ajout des fichiers de configuration dans le dépôt Git"
 # Ajout du Webpack Encore
 composer require symfony/webpack-encore-bundle
 
-# Afficher le message à l'utilisateur
-Write-Host "Veuillez lancer MANUELLEMENT Docker Desktop (Windows) et ensuite revenir sur cette fenêtre pour continuer." -ForegroundColor Cyan
-Write-Host "Appuyez sur ENTER lorsque c'est fait (Fenêtre en attente...)" -ForegroundColor Cyan
-
 # Vérifier si le service Docker est démarré
-$service = Get-Service -Name com.docker.service
+$service = Get-Service -Name com.docker.service -ErrorAction SilentlyContinue
 
-if ($service.Status -eq 'Stopped') {
-    Write-Host "Le service Docker Desktop est arrêté. Tentative de démarrage..." -ForegroundColor Yellow
-    try {
-        Start-Service -Name com.docker.service
-        Write-Host "Service Docker Desktop démarré avec succès." -ForegroundColor Green
-    } catch {
-        Write-Host "Échec du démarrage du service Docker Desktop : $_" -ForegroundColor Red
-    }
+if ($null -eq $service -or $service.Status -eq 'Stopped') {
+    Write-Host "Le service Docker Desktop n'est pas démarré. Veuillez démarrer Docker Desktop manuellement et appuyer sur ENTER pour continuer." -ForegroundColor Yellow
+    Read-Host
 } else {
     Write-Host "Le service Docker Desktop est déjà en cours d'exécution." -ForegroundColor Green
 }
@@ -138,7 +129,7 @@ if ($service.Status -eq 'Stopped') {
 # Attendre que Docker soit prêt
 $dockerRunning = $false
 $retryCount = 0
-$maxRetries = 5
+$maxRetries = 20
 
 while (-not $dockerRunning -and $retryCount -lt $maxRetries) {
     try {
