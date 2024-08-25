@@ -31,10 +31,10 @@ if (-Not (Test-Path $iniPath) -and (Test-Path $devIniPath)) {
 }
 
 # Activer les extensions openssl et curl dans php.ini
-(Get-Content $iniPath) | ForEach-Object {
-    $_ -replace ';extension=openssl', 'extension=openssl' `
-       -replace ';extension=curl', 'extension=curl'
-} | Set-Content $iniPath
+$iniContent = Get-Content $iniPath
+$iniContent = $iniContent -replace ';extension=openssl', 'extension=openssl'
+$iniContent = $iniContent -replace ';extension=curl', 'extension=curl'
+$iniContent | Set-Content $iniPath
 
 Write-Output "Activated openssl and curl extensions in php.ini"
 
