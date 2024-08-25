@@ -17,12 +17,21 @@ symfony new $nameProject --webapp
 cd ./$nameProject
 
 (Get-Content ./.env) -replace '^(DATABASE_URL=).+', "DATABASE_URL=`"mysql://root:rootpassword@mysql:3306/$nameProject`_db?serverVersion=8.0`" # Dev" | Set-Content ./.env
-Remove-Item .\compose.override.yaml, .\compose.yaml
-Invoke-RestMethod -Uri https://github.com/sali6000/Symfony-project-init/raw/main/Dockerfile -OutFile .\
-Invoke-RestMethod -Uri https://github.com/sali6000/Symfony-project-init/raw/main/docker-compose.yaml -OutFile .\
-mkdir -p ./docker/nginx/conf.d
-Invoke-RestMethod -Uri https://github.com/sali6000/Symfony-project-init/raw/main/nginx.conf -OutFile .\docker\nginx
-Invoke-RestMethod -Uri https://github.com/sali6000/Symfony-project-init/raw/main/default.conf -OutFile .\docker\nginx\conf.d
 
+# Supprimer les fichiers de configuration Docker existants
+Remove-Item .\compose.override.yaml, .\compose.yaml -Force
+
+# Télécharger les fichiers nécessaires
+Invoke-RestMethod -Uri https://github.com/sali6000/Symfony-project-init/raw/main/Dockerfile -OutFile .\Dockerfile
+Invoke-RestMethod -Uri https://github.com/sali6000/Symfony-project-init/raw/main/docker-compose.yaml -OutFile .\docker-compose.yaml
+
+# Créer les dossiers requis
+mkdir -p .\docker\nginx\conf.d
+
+# Télécharger les fichiers Nginx dans les dossiers corrects
+Invoke-RestMethod -Uri https://github.com/sali6000/Symfony-project-init/raw/main/nginx.conf -OutFile .\docker\nginx\nginx.conf
+Invoke-RestMethod -Uri https://github.com/sali6000/Symfony-project-init/raw/main/default.conf -OutFile .\docker\nginx\conf.d\default.conf
+
+# Ouvrir le projet dans VS Code
 code ./$nameProject
 
