@@ -113,9 +113,6 @@ composer require symfony/webpack-encore-bundle
 # Installe les dépendances JavaScript définies dans le fichier package.json généré par Webpack Encore
 npm install
 
-# Installe les nouvelles dépendances PHP définis dans composer.json) à l'intérieur du conteneur PHP
-docker-compose exec php composer install
-
 # Attente de lancement de Docker Desktop (Manuellement)
 Write-Host "Veuillez vous assurer que Docker Desktop (windows) est bien lancé avant de passer à la suite. Appuyer sur ENTER pour continuer." -ForegroundColor Red
 Read-Host
@@ -147,6 +144,9 @@ if (-not $dockerRunning) {
 }
 
 Write-Host "Continuation du script..." -ForegroundColor Green
+
+# Installe les nouvelles dépendances PHP définis dans composer.json) à l'intérieur du conteneur PHP
+docker-compose exec php composer install
 
 # Exécuter la commande docker-compose pour construire l'image et lancer les services en arrière-plan
 docker-compose up -d --build
