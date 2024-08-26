@@ -1,4 +1,4 @@
-## Initialisation d'Environnement Symfony avec Docker sur Windows (nécessite une connexion internet)
+## Initialisation d'un projet Symfony avec Docker sur Windows (nécessite une connexion internet)
 
 ### Prérequis
 ##### Pour utiliser ce projet, assurez-vous d'avoir les éléments suivants d'installés sur votre machine :
