@@ -1,4 +1,4 @@
-## Initialisation d'un projet Symfony avec Docker (sous Windows)
+## Initialisation d'un projet Symfony avec Docker (Windows)
 
 ### Prérequis
 ##### Pour utiliser ce projet, assurez-vous d'avoir les éléments suivants d'installés sur votre machine :
