@@ -9,7 +9,7 @@
 
 
 ### Présentation
-##### Ce script PowerShell permet d'initialiser un environnement global complet et de préparer un projet Symfony standard avec Docker et MySQL. Il installe automatiquement toutes les dépendances nécessaires et configure un environnement de développement moderne en une seul ligne de commande.
+##### Ce script PowerShell permet d'initialiser un environnement global complet afin de préparer un projet Symfony standard avec Docker et MySQL. Il installe automatiquement toutes les dépendances nécessaires et configure un environnement de développement moderne en une seul ligne de commande.
 
 
 ### Outils inclus
