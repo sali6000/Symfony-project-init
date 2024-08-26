@@ -87,8 +87,6 @@ Set-Content -Path $dockerfilePath -Value $dockerfileContent
 
 Write-Host "Dockerfile updated to use PHP version $phpMajorMinor-fpm" -ForegroundColor Green
 
-
-
 # Mettre à jour docker-compose.yaml
 $dockerComposePath = "$HOME\$nameProject\docker-compose.yaml"
 if (Test-Path $dockerComposePath) {
@@ -97,10 +95,6 @@ if (Test-Path $dockerComposePath) {
 } else {
     Write-Host "docker-compose.yaml not found. Ensure you are in the correct directory." -ForegroundColor Red
 }
-
-
-
-
 
 # Créer les dossiers requis
 mkdir -p .\docker\nginx\conf.d
@@ -116,6 +110,13 @@ git commit -m "Ajout des fichiers de configuration dans le dépôt Git"
 # Ajout du Webpack Encore
 composer require symfony/webpack-encore-bundle
 
+# Installe les dépendances JavaScript définies dans le fichier package.json généré par Webpack Encore
+npm install
+
+# Installe les nouvelles dépendances PHP définis dans composer.json) à l'intérieur du conteneur PHP
+docker-compose exec php composer install
+
+# Attente de lancement de Docker Desktop (Manuellement)
 Write-Host "Veuillez vous assurer que Docker Desktop (windows) est bien lancé avant de passer à la suite. Appuyer sur ENTER pour continuer." -ForegroundColor Red
 Read-Host
 
@@ -150,11 +151,7 @@ Write-Host "Continuation du script..." -ForegroundColor Green
 # Exécuter la commande docker-compose pour construire l'image et lancer les services en arrière-plan
 docker-compose up -d --build
 
-# Exécuter la commande pour créer la base de données
-# docker exec -it $nameProject-php-1 php bin/console doctrine:database:create
-
 Write-Host "FIN de l'installation ! Vous pouvez continuer sur la nouvelle fenêtre et fermer celle-çi. Bonne continuation !" -ForegroundColor Green
 
 # Ouvrir le projet dans VS Code
 code $HOME/$nameProject
-
