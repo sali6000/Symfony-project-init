@@ -10,22 +10,6 @@ cd $HOME
 # Permettre l'exécution des scripts PowerShell
 Set-ExecutionPolicy RemoteSigned -Scope CurrentUser
 
-# Vérifier si Scoop est déjà installé
-if (Get-Command scoop -ErrorAction SilentlyContinue) {
-    Write-Output "Scoop est déjà installé. Mise à jour de Scoop..."
-    scoop update
-} else {
-    Write-Output "Installation de Scoop..."
-    iwr -useb get.scoop.sh | iex
-}
-
-# Ajouter le bucket 'extras' pour des outils supplémentaires comme Docker
-Write-Output "Ajout du bucket 'extras'..."
-scoop bucket add extras
-
-# Installation avec suivi des détails
-Write-Host "Installation de PHP, Symfony CLI, Composer, Docker, Git, et Node.js..." -ForegroundColor Cyan
-scoop install php symfony-cli composer docker git nodejs | Write-Host
 
 # Définir le chemin vers le dossier PHP dans Scoop
 $phpPath = (Get-ChildItem "$env:USERPROFILE\scoop\apps\php\" -Directory | Sort-Object Name -Descending | Select-Object -First 1).FullName
