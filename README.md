@@ -15,21 +15,17 @@
 ### Outils inclus
 Le script installe les dernières versions des outils suivants :
 
-###### - Scoop : Gestionnaire de paquets pour Windows.
+###### - PHP 8.3 (dans l'image Docker du projet) : Le langage de programmation utilisé par Symfony.
 
-###### - PHP : Le langage de programmation utilisé par Symfony.
+###### - Symfony-CLI (dans l'image Docker du projet) : Outil en ligne de commande pour gérer les projets Symfony.
 
-###### - Symfony-CLI : Outil en ligne de commande pour gérer les projets Symfony.
+###### - Composer (dans l'image Docker du projet) : Gestionnaire de dépendances PHP.
 
-###### - Docker : Conteneurisation des services de votre application.
+###### - Git (dans l'image Docker du projet) : Gestionnaire de versions pour le contrôle de source.
 
-###### - Composer : Gestionnaire de dépendances PHP.
+###### - Node.js (dans l'image Docker du projet) : Environnement d'exécution JavaScript.
 
-###### - Git : Gestionnaire de versions pour le contrôle de source.
-
-###### - Node.js : Environnement d'exécution JavaScript.
-
-###### - Webpack Encore : Outil de build frontend pour Symfony.
+###### - Webpack Encore (dans l'image Docker du projet) : Outil de build frontend pour Symfony.
 
 
 
