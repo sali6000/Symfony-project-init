@@ -1,6 +1,6 @@
-FROM php:8.2-fpm
+FROM php:8.3-fpm
 
-# Install dependencies
+#  Install necessary dependencies
 RUN apt-get update && apt-get install -y \
     git \
     curl \
@@ -9,7 +9,9 @@ RUN apt-get update && apt-get install -y \
     libonig-dev \
     libzip-dev \
     unzip \
-    zip
+    zip \
+    nodejs \
+    npm
 # Détails des paquets installés :
 # git : Système de versionnement distribué, souvent utilisé pour cloner des dépôts lors de la construction de conteneurs.
 # curl : Outil de ligne de commande pour transférer des données avec des URL. Peut être utilisé par PHP ou des scripts pour effectuer des requêtes HTTP.
@@ -24,11 +26,12 @@ RUN apt-get update && apt-get install -y \
 # PHP Extensions : Certaines extensions PHP requièrent des bibliothèques système pour fonctionner correctement. Par exemple, libicu-dev est nécessaire pour l'extension intl, et libzip-dev pour l'extension zip.
 # Outils de construction : Certains outils, comme git et curl, sont utiles lors de la construction d'un conteneur pour récupérer du code, des packages ou des données.
 
-
-
-
 # Install PHP extensions
 RUN docker-php-ext-install intl pdo pdo_mysql mbstring zip opcache
+
+# Install Symfony CLI
+RUN curl -sS https://get.symfony.com/cli/installer | bash - \
+    && mv /root/.symfony*/bin/symfony /usr/local/bin/symfony
 
 # Install Composer
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
