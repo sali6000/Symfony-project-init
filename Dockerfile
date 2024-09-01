@@ -52,11 +52,11 @@ RUN curl -sS https://get.symfony.com/cli/installer | bash - && \
 # Switch back to non-root user
 USER symfonyuser
 
-# Copy existing application directory contents
-COPY . .
-
 # Run composer with COMPOSER_ALLOW_SUPERUSER=1
 RUN export COMPOSER_ALLOW_SUPERUSER=1 && composer install --no-interaction --optimize-autoloader --prefer-dist
+
+# Copy existing application directory contents
+COPY . .
 
 # Change ownership of var directory
 USER root
