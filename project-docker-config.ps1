@@ -62,10 +62,11 @@ while (-not $confirmation) {
 # mettre dockerfile, docker-compose.yaml et le dossier docker dans le répertoire
 
 # Créer le répertoire du projet
-mkdir -p $nginxPath
+mkdir -p $nameProject
 
 # Répertoire temporaire pour le téléchargement
 $tempPath = [System.IO.Path]::GetTempPath()
+$tempPath
 
 # URLs des fichiers à télécharger
 $nginxConfUrl = "https://github.com/sali6000/Symfony-project-init/raw/main/nginx.conf"
