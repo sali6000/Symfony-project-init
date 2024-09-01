@@ -60,8 +60,9 @@ while (-not $confirmation) {
 }
 #créer repertoire projet et y accéder
 # mettre dockerfile, docker-compose.yaml et le dossier docker dans le répertoire
+mkdir $nameProject
+cd $nameProject
 docker-compose build
-
 docker-compose up -d
 docker-compose exec php bash
 symfony new . --webapp
