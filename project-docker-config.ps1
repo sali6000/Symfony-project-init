@@ -87,7 +87,10 @@ Invoke-RestMethod -Uri $defaultConfUrl -OutFile $tempDefaultConf
 Invoke-RestMethod -Uri $dockerfileUrl -OutFile $tempDockerfile
 Invoke-RestMethod -Uri $composeUrl -OutFile $tempCompose
 
-Copy-Item -Path $tempNginxConf -Destination $HOME/$nameProject/
+Copy-Item -Path $tempNginxConf -Destination $HOME/$nameProject/docker/nginx
+Copy-Item -Path $tempDefaultConf -Destination $HOME/$nameProject/docker/nginx/conf.d
+Copy-Item -Path $tempDockerfile -Destination $HOME/$nameProject
+Copy-Item -Path $tempCompose -Destination $HOME/$nameProject
 
 # Supprimer les fichiers temporaires
 Remove-Item -Path $tempNginxConf, $tempDefaultConf, $tempDockerfile, $tempCompose -Force
