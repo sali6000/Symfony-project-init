@@ -58,10 +58,8 @@ while (-not $confirmation) {
         Write-Host "Please answer with 'y' or 'n'." -ForegroundColor Red
     }
 }
-#créer repertoire projet et y accéder
-# mettre dockerfile, docker-compose.yaml et le dossier docker dans le répertoire
 
-# Créer le répertoire du projet
+# Créer les répertoires ded base servant à initialiser la base du projet
 mkdir -p $nameProject
 cd .\$nameProject
 mkdir -p .\docker\nginx\conf.d
@@ -94,3 +92,8 @@ Copy-Item -Path $tempCompose -Destination $HOME/$nameProject
 
 # Supprimer les fichiers temporaires
 Remove-Item -Path $tempNginxConf, $tempDefaultConf, $tempDockerfile, $tempCompose -Force
+
+docker-compose build
+docker-compose up -d
+docker-compose exec php bash
+symfony new . --webapp
