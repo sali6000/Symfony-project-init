@@ -64,7 +64,7 @@ docker-compose build
 
 docker-compose up -d
 docker-compose exec php bash
-symfony new $nameProject --webapp
+symfony new . --webapp
 
 #symfony new $nameProject --webapp
 # webapp inclut par défaut:
