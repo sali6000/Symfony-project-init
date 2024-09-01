@@ -85,6 +85,7 @@ Invoke-RestMethod -Uri $defaultConfUrl -OutFile $tempDefaultConf
 Invoke-RestMethod -Uri $dockerfileUrl -OutFile $tempDockerfile
 Invoke-RestMethod -Uri $composeUrl -OutFile $tempCompose
 
+Copy-Item -Path $tempNginxConf -Destination $HOME/$nameProject/
 
 docker-compose build
 docker-compose up -d
