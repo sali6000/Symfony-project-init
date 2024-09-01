@@ -63,6 +63,7 @@ while (-not $confirmation) {
 
 # Créer le répertoire du projet
 mkdir -p $nameProject
+mkdir -p $nameproject/docker
 
 # Répertoire temporaire pour le téléchargement
 $tempPath = [System.IO.Path]::GetTempPath()
@@ -84,6 +85,7 @@ Invoke-RestMethod -Uri $nginxConfUrl -OutFile $tempNginxConf
 Invoke-RestMethod -Uri $defaultConfUrl -OutFile $tempDefaultConf
 Invoke-RestMethod -Uri $dockerfileUrl -OutFile $tempDockerfile
 Invoke-RestMethod -Uri $composeUrl -OutFile $tempCompose
+
 
 Copy-Item -Path $tempNginxConf -Destination $HOME/$nameProject/
 
