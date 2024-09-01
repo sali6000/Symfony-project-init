@@ -20,7 +20,7 @@ $modifyName = Read-Host
 if ($modifyName -eq "y") {
     Write-Host "Please enter the new Git user.name" -ForegroundColor Cyan
     $username = Read-Host
-    git config --global user.name $username
+    RUN git config --global user.name $username
     Write-Host "Git user.name updated to $username" -ForegroundColor Green
 } else {
     Write-Host "Git user.name remains as $currentName" -ForegroundColor Green
@@ -32,7 +32,7 @@ $modifyEmail = Read-Host
 if ($modifyEmail -eq "y") {
     Write-Host "Please enter the new Git user.email" -ForegroundColor Cyan
     $mail = Read-Host
-    git config --global user.email $mail
+    RUN git config --global user.email $mail
     Write-Host "Git user.email updated to $mail" -ForegroundColor Green
 } else {
     Write-Host "Git user.email remains as $currentEmail" -ForegroundColor Green
