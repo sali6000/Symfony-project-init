@@ -59,7 +59,13 @@ while (-not $confirmation) {
     }
 }
 
+docker-compose build
+
+docker-compose up -d
+docker-compose exec php bash
 symfony new $nameProject --webapp
+
+#symfony new $nameProject --webapp
 # webapp inclut par défaut:
 # Twig : pour les templates.
 # Doctrine : pour l'accès à la base de données.
