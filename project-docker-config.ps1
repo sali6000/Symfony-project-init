@@ -66,7 +66,6 @@ mkdir -p $nameProject
 
 # Répertoire temporaire pour le téléchargement
 $tempPath = [System.IO.Path]::GetTempPath()
-$tempPath
 
 # URLs des fichiers à télécharger
 $nginxConfUrl = "https://github.com/sali6000/Symfony-project-init/raw/main/nginx.conf"
@@ -86,14 +85,6 @@ Invoke-RestMethod -Uri $defaultConfUrl -OutFile $tempDefaultConf
 Invoke-RestMethod -Uri $dockerfileUrl -OutFile $tempDockerfile
 Invoke-RestMethod -Uri $composeUrl -OutFile $tempCompose
 
-# Copier les fichiers dans le répertoire protégé avec élévation de privilèges
-Start-Process -FilePath "cmd.exe" -ArgumentList "/c copy `"$tempNginxConf`" `"$projectPath\docker\nginx\nginx.conf`"" -Verb RunAs
-Start-Process -FilePath "cmd.exe" -ArgumentList "/c copy `"$tempDefaultConf`" `"$nginxPath\default.conf`"" -Verb RunAs
-Start-Process -FilePath "cmd.exe" -ArgumentList "/c copy `"$tempDockerfile`" `"$projectPath\Dockerfile`"" -Verb RunAs
-Start-Process -FilePath "cmd.exe" -ArgumentList "/c copy `"$tempCompose`" `"$projectPath\docker-compose.yaml`"" -Verb RunAs
-
-# Supprimer les fichiers temporaires
-Remove-Item -Path $tempNginxConf, $tempDefaultConf, $tempDockerfile, $tempCompose -Force
 
 docker-compose build
 docker-compose up -d
