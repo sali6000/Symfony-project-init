@@ -58,7 +58,8 @@ while (-not $confirmation) {
         Write-Host "Please answer with 'y' or 'n'." -ForegroundColor Red
     }
 }
-
+#créer repertoire projet et y accéder
+# mettre dockerfile, docker-compose.yaml et le dossier docker dans le répertoire
 docker-compose build
 
 docker-compose up -d
