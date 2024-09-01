@@ -62,6 +62,18 @@ while (-not $confirmation) {
 # mettre dockerfile, docker-compose.yaml et le dossier docker dans le répertoire
 mkdir $nameProject
 cd $nameProject
+
+# Créer les dossiers requis
+mkdir -p .\docker\nginx\conf.d
+
+# Télécharger les fichiers Nginx dans les dossiers corrects
+Invoke-RestMethod -Uri https://github.com/sali6000/Symfony-project-init/raw/main/nginx.conf -OutFile .\docker\nginx\nginx.conf
+Invoke-RestMethod -Uri https://github.com/sali6000/Symfony-project-init/raw/main/default.conf -OutFile .\docker\nginx\conf.d\default.conf
+
+# Télécharger les fichiers Nginx dans les dossiers corrects
+Invoke-RestMethod -Uri https://github.com/sali6000/Symfony-project-init/raw/main/Dockerfile -OutFile .\
+Invoke-RestMethod -Uri https://github.com/sali6000/Symfony-project-init/raw/main/docker-compose.yaml -OutFile .\
+
 docker-compose build
 docker-compose up -d
 docker-compose exec php bash
@@ -115,13 +127,6 @@ if (Test-Path $dockerComposePath) {
 } else {
     Write-Host "docker-compose.yaml not found. Ensure you are in the correct directory." -ForegroundColor Red
 }
-
-# Créer les dossiers requis
-mkdir -p .\docker\nginx\conf.d
-
-# Télécharger les fichiers Nginx dans les dossiers corrects
-Invoke-RestMethod -Uri https://github.com/sali6000/Symfony-project-init/raw/main/nginx.conf -OutFile .\docker\nginx\nginx.conf
-Invoke-RestMethod -Uri https://github.com/sali6000/Symfony-project-init/raw/main/default.conf -OutFile .\docker\nginx\conf.d\default.conf
 
 # Ajout des fichiers de configs mis à jours dans le dépôt Git
 git add .
