@@ -55,12 +55,12 @@ USER symfonyuser
 # Copy existing application directory contents
 COPY . .
 
+# Run composer with COMPOSER_ALLOW_SUPERUSER=1
+RUN export COMPOSER_ALLOW_SUPERUSER=1 && composer install --no-interaction --optimize-autoloader --prefer-dist
+
 # Change ownership of var directory
 USER root
 RUN chown -R www-data:www-data /var/www/html/var/cache
-
-# Run composer with COMPOSER_ALLOW_SUPERUSER=1
-RUN export COMPOSER_ALLOW_SUPERUSER=1 && composer install --no-interaction --optimize-autoloader --prefer-dist
 
 # Ensure that Symfony commands are run correctly
 RUN export SYMFONY_DEPRECATIONS_HELPER=weak && composer dump-autoload --optimize
