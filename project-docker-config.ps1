@@ -1,3 +1,15 @@
+# Arrêter l'exécution en cas d'erreur
+$ErrorActionPreference = "Stop"
+
+# Activer la sortie détaillée
+$VerbosePreference = "Continue"
+
+# Se placer dans le répertoire de l'utilisateur
+cd $HOME
+
+# Permettre l'exécution des scripts PowerShell
+Set-ExecutionPolicy RemoteSigned -Scope CurrentUser
+
 # Récupérer les valeurs actuelles de user.name et user.email
 $currentName = git config --global user.name
 $currentEmail = git config --global user.email
