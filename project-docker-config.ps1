@@ -63,7 +63,7 @@ while (-not $confirmation) {
 
 # Créer le répertoire du projet
 mkdir -p $nameProject
-mkdir -p $nameproject/docker
+mkdir -p .\docker\nginx\conf.d
 
 # Répertoire temporaire pour le téléchargement
 $tempPath = [System.IO.Path]::GetTempPath()
