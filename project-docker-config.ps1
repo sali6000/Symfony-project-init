@@ -60,19 +60,39 @@ while (-not $confirmation) {
 }
 #créer repertoire projet et y accéder
 # mettre dockerfile, docker-compose.yaml et le dossier docker dans le répertoire
-mkdir $nameProject
-cd $nameProject
 
-# Créer les dossiers requis
-mkdir -p .\docker\nginx\conf.d
+# Créer le répertoire du projet
+mkdir -p $nginxPath
 
-# Télécharger les fichiers Nginx dans les dossiers corrects
-Invoke-RestMethod -Uri https://github.com/sali6000/Symfony-project-init/raw/main/nginx.conf -OutFile $HOME\nginx.conf
-Invoke-RestMethod -Uri https://github.com/sali6000/Symfony-project-init/raw/main/default.conf -OutFile $HOME\default.conf
+# Répertoire temporaire pour le téléchargement
+$tempPath = [System.IO.Path]::GetTempPath()
 
-# Télécharger les fichiers Nginx dans les dossiers corrects
-Invoke-RestMethod -Uri https://github.com/sali6000/Symfony-project-init/raw/main/Dockerfile -OutFile $HOME
-Invoke-RestMethod -Uri https://github.com/sali6000/Symfony-project-init/raw/main/docker-compose.yaml -OutFile $HOME
+# URLs des fichiers à télécharger
+$nginxConfUrl = "https://github.com/sali6000/Symfony-project-init/raw/main/nginx.conf"
+$defaultConfUrl = "https://github.com/sali6000/Symfony-project-init/raw/main/default.conf"
+$dockerfileUrl = "https://github.com/sali6000/Symfony-project-init/raw/main/Dockerfile"
+$composeUrl = "https://github.com/sali6000/Symfony-project-init/raw/main/docker-compose.yaml"
+
+# Fichiers temporaires pour le téléchargement
+$tempNginxConf = Join-Path -Path $tempPath -ChildPath "nginx.conf"
+$tempDefaultConf = Join-Path -Path $tempPath -ChildPath "default.conf"
+$tempDockerfile = Join-Path -Path $tempPath -ChildPath "Dockerfile"
+$tempCompose = Join-Path -Path $tempPath -ChildPath "docker-compose.yaml"
+
+# Télécharger les fichiers dans le répertoire temporaire
+Invoke-RestMethod -Uri $nginxConfUrl -OutFile $tempNginxConf
+Invoke-RestMethod -Uri $defaultConfUrl -OutFile $tempDefaultConf
+Invoke-RestMethod -Uri $dockerfileUrl -OutFile $tempDockerfile
+Invoke-RestMethod -Uri $composeUrl -OutFile $tempCompose
+
+# Copier les fichiers dans le répertoire protégé avec élévation de privilèges
+Start-Process -FilePath "cmd.exe" -ArgumentList "/c copy `"$tempNginxConf`" `"$projectPath\docker\nginx\nginx.conf`"" -Verb RunAs
+Start-Process -FilePath "cmd.exe" -ArgumentList "/c copy `"$tempDefaultConf`" `"$nginxPath\default.conf`"" -Verb RunAs
+Start-Process -FilePath "cmd.exe" -ArgumentList "/c copy `"$tempDockerfile`" `"$projectPath\Dockerfile`"" -Verb RunAs
+Start-Process -FilePath "cmd.exe" -ArgumentList "/c copy `"$tempCompose`" `"$projectPath\docker-compose.yaml`"" -Verb RunAs
+
+# Supprimer les fichiers temporaires
+Remove-Item -Path $tempNginxConf, $tempDefaultConf, $tempDockerfile, $tempCompose -Force
 
 docker-compose build
 docker-compose up -d
