@@ -63,6 +63,7 @@ while (-not $confirmation) {
 
 # Créer le répertoire du projet
 mkdir -p $nameProject
+cd .\$nameProject
 mkdir -p .\docker\nginx\conf.d
 
 # Répertoire temporaire pour le téléchargement
