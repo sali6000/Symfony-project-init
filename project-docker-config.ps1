@@ -96,4 +96,3 @@ Remove-Item -Path $tempNginxConf, $tempDefaultConf, $tempDockerfile, $tempCompos
 docker-compose build
 docker-compose up -d
 docker-compose exec php bash
-symfony new . --webapp
