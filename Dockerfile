@@ -16,12 +16,13 @@ RUN apt-get update && apt-get install -y \
 # Install PHP extensions
 RUN docker-php-ext-install intl pdo pdo_mysql mbstring zip opcache
 
-# Install Symfony CLI
-RUN curl -sS https://get.symfony.com/cli/installer | bash - \
-    && mv /root/.symfony*/bin/symfony /usr/local/bin/symfony
 
 # Install Composer
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
+
+# Install Symfony CLI
+RUN curl -sS https://get.symfony.com/cli/installer | bash - \
+    && mv /root/.symfony*/bin/symfony /usr/local/bin/symfony
 
 # Set working directory
 WORKDIR /var/www/html
