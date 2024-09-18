@@ -33,6 +33,9 @@ RUN docker-php-ext-install intl pdo pdo_mysql mbstring zip opcache
 RUN curl -sS https://get.symfony.com/cli/installer | bash - \
     && mv /root/.symfony*/bin/symfony /usr/local/bin/symfony
 
+    # Install Symfony and Composer
+RUN symfony new . --webapp
+
 # Install Composer
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
