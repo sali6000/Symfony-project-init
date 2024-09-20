@@ -92,8 +92,3 @@ Copy-Item -Path $tempNginxConf -Destination $HOME/$nameProject/
 
 # Supprimer les fichiers temporaires
 Remove-Item -Path $tempNginxConf, $tempDefaultConf, $tempDockerfile, $tempCompose -Force
-
-docker-compose build
-docker-compose up -d
-docker-compose exec php bash
-symfony new . --webapp
