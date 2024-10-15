@@ -24,7 +24,7 @@ services:
   nginx:
     image: nginx:alpine
     volumes:
-      - ./public:/var/www/html/public
+      - ./src/public:/var/www/html/public
       - ./docker/nginx/conf.d/default.conf:/etc/nginx/conf.d/default.conf  # Notez bien l'emplacement ici
     ports:
       - "8080:80"
