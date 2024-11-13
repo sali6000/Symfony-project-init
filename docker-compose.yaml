@@ -3,7 +3,7 @@ services:
   php:
     build: .
     volumes:
-      - ./app:/var/www/html
+      - ./:/var/www/html
     networks:
       - symfony
 
