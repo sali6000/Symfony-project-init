@@ -1,0 +1,90 @@
+  <header>
+    <!-- BARRE DE NAVIGATION -->
+    <div class="full-navbar">
+      <div class="cell-hidden-littlescreen">_</div>
+      <a href="{{path('app_home')}}">
+        <img src="{{ asset('build/images/logos/alupontr.png') }}" alt="logo-index" class="link logo-texte" />
+      </a>
+      <!-- BARRE DE NAVIGATION HAUTE RESOLUTION -->
+      <div class="hidden-on-littlescreen">
+        <div class="navbar">
+          <!-- LIENS-->
+          <a href="{{path('app_home')}}">
+            <div class="cell link border-bottom">Accueil</div>
+          </a>
+          <div class="cell link border-bottom dropdown cell">
+            <a>Produits</a>
+            <div class="dropdown-content">
+              <div class="dropdown-content-link"><a href="{#{{path('app_procural')}}#}">
+                  <div class="cell link">PROCURAL</div>
+                </a></div>
+              <div class="dropdown-content-link"><a href="product/list">
+                  <div class="cell link">Voir tous les produits</div>
+                </a></div>
+            </div>
+          </div>
+
+          <div class="cell link border-bottom dropdown cell">
+            <a>Société</a>
+            <div class="dropdown-content">
+              <div class="dropdown-content-link"><a href="about">
+                  <div class="cell link">Qui sommes nous</div>
+                </a></div>
+              <div class="dropdown-content-link"><a href="history">
+                  <div class="cell link">Installations</div>
+                </a></div>
+            </div>
+          </div>
+          <div class="cell link border-bottom dropdown cell">
+            <a>Nous contacter</a>
+            <div class="dropdown-content">
+              <div class="dropdown-content-link"><a href="contact">
+                  <div class="cell link">Envoyer un message</div>
+                </a></div>
+              <div class="dropdown-content-link"><a href="devis">
+                  <div class="cell link">Demander un devis</div>
+                </a></div>
+            </div>
+          </div>
+          <a href="about">
+            <div class="cell link border-bottom">A propos</div>
+          </a>
+        </div>
+        <div class="contact">
+          <img style="width:15px;" src="{{asset('build/images/icons/phone.png')}}" alt="contact"> <span>+3264/67.32.00 <b><br>Horaire:</b> Lun - Ven 8h - 16h</span>
+        </div>
+      </div>
+      <img id="searchTexte" style=" width:15px;margin-right:1%;" src="{{asset('build/images/icons/search.png')}}" alt="search">
+      <input type="text" id="searchInputIndex" placeholder="Rechercher..."><br>
+      <ul id="searchResults"></ul>
+
+      <!-- BARRE DE NAVIGATION BASSE RESOLUTION -->
+      <div class="little-menu-hidden">
+        <!-- MENU HAMBURGER -->
+        <nav role="navigation">
+          <div id="menuToggle">
+            <input type="checkbox" />
+            <span></span>
+            <span></span>
+            <span></span>
+            <!-- A L'INTERIEUR DE L'HAMBURGER -->
+            <ul id="menu">
+              <a href="acceuil">
+                <li>Accueil</li>
+              </a>
+              <a href="devis">
+                <li>Devis</li>
+              </a>
+              <a href="presentation">
+                <li>Présentation</li>
+              </a>
+              <a href="gallery">
+                <li>Gallerie</li>
+              </a>
+            </ul>
+          </div>
+        </nav>
+      </div>
+      <br>
+    </div>
+  </header>
