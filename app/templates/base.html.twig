@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="description" content="Description of your page">
+        <meta name="keywords" content="PHP, MVC, SEO, Tutorial">
+        <meta name="author" content="Steven F">
+        <link rel="icon" href="{{ asset('build/images/logos/alupontr.png') }}">
+        <title>{% block title %}{% endblock %}</title>
+        {{ encore_entry_link_tags('app') }} <!-- Cela inclura tous les CSS compilés, y compris headerStylesheet.css et footerStylesheet.css -->
+        {% block stylesheets %}
+        {% endblock %}
+        {% block javascripts %}
+            {{ encore_entry_script_tags('header_js') }}
+            {{ encore_entry_script_tags('submenuRoll_js') }}
+        {% endblock %}
+    </head>
+    <body>
+        {% include "partials/header.html.twig" %}
+        {% block body %}{% endblock %}
+        {% include "partials/footer.html.twig" %}
+    </body>
+</html>
