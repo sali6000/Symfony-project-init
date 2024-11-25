@@ -2,9 +2,9 @@
 
 ### Prérequis
 ##### Pour utiliser ce projet, assurez-vous d'avoir les éléments suivants d'installés sur votre machine :
-###### - Visual Studio Code
-
-###### - Docker Desktop
+###### - Une connection internet
+###### - Docker Desktop (installation et lancement du programme)
+###### - En 1 seul commande PowerShell, vous recevez 10 minutes plus tard, un projet docker comprennant symfony 7 et toute les dépendances d'un projet moyen à volumineu dans un seul conteneur
 
 
 
