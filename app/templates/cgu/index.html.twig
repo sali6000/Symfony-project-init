@@ -1,0 +1,53 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Cgu{% endblock %}
+{% block stylesheets %}
+    {{ encore_entry_link_tags('cgu_css') }}
+{% endblock %}
+{% block body %}
+<div class="container-cgu">
+
+    <h1>Conditions Générales d'Utilisation (CGU)</h1>
+    <h5>Dernière mise à jour : 17/07/2024</h5>
+
+    <p>Bienvenue sur le site web d'<?= BASE_ENTREPRISE_TITLE ?>. Les présentes Conditions Générales d’Utilisation (ci-après “CGU”) sont conclues entre tout internaute
+        naviguant, ou ayant accès aux fonctionnalités du Site (ci-après dénommé « l’Internaute » ou “le Client” ou
+        à qui il est fait référence par « vous » ou «votre ») et <?= BASE_ENTREPRISE_TITLE ?>.</p>
+    <p> En accédant et en utilisant notre site web (<?= BASE_ENTREPRISE_HTTP ?>), vous acceptez de vous conformer aux présentes conditions générales d'utilisation (CGU). Si vous n'acceptez pas ces CGU, veuillez ne pas utiliser notre site.</p>
+    <hr>
+    <h3>1. Informations légales</h3>
+    <b>Nom de l'entreprise</b> : <?= BASE_ENTREPRISE_TITLE ?><br>
+    <b>Propriétaire du site</b> : Steven F<br>
+    <b>Adresse</b> : Rue des Brasseries 2, 7170 Manage<br>
+    <b>Email de contact</b> : <?= BASE_ENTREPRISE_MAIL ?><br>
+    <b>Numéro de téléphone</b> : 064/67.32.00<br>
+    <b>Numéro d'entreprise (TVA)</b> : BE0664544624
+
+    <h3>2. Objet du site</h3>
+    <p>Le site web d'<?= BASE_ENTREPRISE_TITLE ?> a pour objectif de présenter des produits de châssis en aluminium. Les informations fournies sur ce site sont destinées à des fins d'information générale et ne constituent pas une offre de vente.</p>
+    <h3>3. Accès au site</h3>
+    <p>L'accès au site est gratuit. Cependant, les coûts de l'accès à internet et d'utilisation des moyens de communication sont à la charge de l'utilisateur. <?= BASE_ENTREPRISE_TITLE ?> se réserve le droit de suspendre, limiter ou interrompre l'accès à tout ou partie du site, sans préavis.</p>
+
+    <h3>4. Propriété intellectuelle</h3>
+    Tout le contenu du site, y compris les textes, images, graphiques, logos, vidéos et autres matériaux, est protégé par les lois belges et internationales sur le droit d'auteur et la propriété intellectuelle. Toute reproduction, distribution ou utilisation non autorisée de ce contenu est strictement interdite.
+
+    <h3>5. Protection des données personnelles</h3>
+    <?= BASE_ENTREPRISE_TITLE ?> s'engage à protéger la vie privée de ses utilisateurs. Nous collectons et traitons les données personnelles conformément au Règlement Général sur la Protection des Données (RGPD). Pour plus de détails, veuillez consulter notre [Politique de confidentialité](lien vers la politique de confidentialité).
+
+    <h3>6. Limitation de responsabilité</h3>
+    Les informations présentes sur le site sont fournies à titre indicatif et sont réputées correctes au moment de leur publication. Toutefois, <?= BASE_ENTREPRISE_TITLE ?> ne peut garantir l'exactitude, la complétude ou la pertinence de ces informations. En conséquence, <?= BASE_ENTREPRISE_TITLE ?> décline toute responsabilité en cas d'erreur ou d'omission dans le contenu du site.
+
+    <h3>7. Liens externes</h3>
+    Le site peut contenir des liens vers d'autres sites web. <?= BASE_ENTREPRISE_TITLE ?> n'a aucun contrôle sur ces sites et décline toute responsabilité quant à leur contenu, leur sécurité ou leurs pratiques de confidentialité.
+
+    <h3>8. Modification des CGU</h3>
+    <?= BASE_ENTREPRISE_TITLE ?> se réserve le droit de modifier les présentes CGU à tout moment. Les utilisateurs sont invités à consulter régulièrement cette page pour prendre connaissance des éventuelles modifications.
+
+    <h3>9. Droit applicable et juridiction compétente</h3>
+    Les présentes CGU sont régies par le droit belge. Tout litige relatif à l'interprétation ou à l'exécution des présentes sera soumis à la compétence exclusive des tribunaux belges.
+
+    <h3>10. Contact</h3>
+    Pour toute question ou demande d'information concernant ces CGU, vous pouvez nous contacter à l'adresse suivante : <?= BASE_ENTREPRISE_MAIL ?>
+</div>
+
+{% endblock %}
