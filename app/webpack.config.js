@@ -30,6 +30,8 @@ Encore
 
     .addEntry('index_css','./assets/styles/indexStylesheet.css')
     .addEntry('slider_css','./assets/styles/sliderStylesheet.css')
+    .addEntry('cgu_css','./assets/styles/cguStylesheet.css')
+
 
 
 
