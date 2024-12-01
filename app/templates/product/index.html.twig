@@ -1,0 +1,61 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello ProductController!{% endblock %}
+{% block stylesheets %}
+    {{ encore_entry_link_tags('gallery_css') }}
+    {{ encore_entry_link_tags('lazyload_css') }}
+{% endblock %}
+{% block body %}
+
+<!-- GALLERY -->
+<div class="div-center">
+  <div class="masonry masonry--h">
+
+    {% for product in products %}
+
+<a href="product/detail/{{ product.id}}">
+<div class="masonry-brick masonry-brick--h item" data-category="{{product.category.name}}">
+                    <div class="text-centered">AFFICHER</div>
+              <img class="preview lazy-content" data-src="">
+<img src="{{ asset('images/products/' ~ product.imageName) }}">
+
+          <table>
+            <thead>
+              <tr>
+                <th>Caracteristiques</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>
+                  <b>Nom:</b>
+                </td>
+                <td>{{ product.name}}</td>
+              </tr>
+              <tr>
+                <td>
+                  <b>Type:</b>
+                </td>
+                <td>{{product.price}}</td>
+              </tr>
+              <tr>
+                <td>
+                  <b>Type:</b>
+                </td>
+                <td>{{product.description}}</td>
+              </tr>
+              <!-- Add more rows as needed -->
+            </tbody>
+          </table>
+</div>
+
+</a>
+    {% endfor %}
+</div>
+</div><br><br>
+{% endblock %}
+{% block javascripts %}
+    {{ encore_entry_script_tags('searchbar_js') }}
+    {{ encore_entry_script_tags('lazyload_js') }}
+{% endblock %}
