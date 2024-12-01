@@ -27,10 +27,18 @@ Encore
     .addEntry('onTop_js', './assets/scripts/onTop.js')
     .addEntry('smoothScroll_js', './assets/scripts/smoothScroll.js')
     .addEntry('apparition_js', './assets/scripts/apparition.js')
+     // Products list
+    .addEntry('filter_js', './assets/scripts/filter.js')
+    .addEntry('searchbar_js', './assets/scripts/searchbar.js')
+    .addEntry('lazyload_js', './assets/scripts/lazyload.js')
+
 
     .addEntry('index_css','./assets/styles/indexStylesheet.css')
     .addEntry('slider_css','./assets/styles/sliderStylesheet.css')
     .addEntry('cgu_css','./assets/styles/cguStylesheet.css')
+     //Product list
+    .addEntry('lazyload_css','./assets/styles/lazyloadStylesheet.css')
+    .addEntry('gallery_css','./assets/styles/galleryStylesheet.css')
 
 
 
