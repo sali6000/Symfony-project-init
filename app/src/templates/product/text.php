@@ -1,0 +1,1 @@
+templates/product/text.php
