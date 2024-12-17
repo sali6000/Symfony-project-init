@@ -7,15 +7,25 @@ FROM php:8.3-fpm
 
 # Met à jour les paquets existants et installe les dépendances nécessaires à l'environnement du projet.
 RUN apt-get update && apt-get install -y \
-    git \            # Outil de gestion de version pour le suivi et le partage du code source.
-    curl \           # Outil en ligne de commande pour effectuer des requêtes HTTP.
-    libicu-dev \     # Bibliothèque pour les fonctionnalités d'internationalisation.
-    libonig-dev \    # Bibliothèque nécessaire pour le support des expressions régulières dans PHP (utilisée avec `mbstring`).
-    libzip-dev \     # Bibliothèque pour la manipulation des fichiers ZIP, essentielle pour les projets PHP modernes.
-    unzip \          # Utilisé pour extraire des fichiers ZIP.
-    zip \            # Utilisé pour créer des fichiers ZIP.
-    nodejs \         # Plateforme JavaScript côté serveur (utilisée par Webpack Encore ou des outils JS dans Symfony).
-    npm              # Gestionnaire de paquets JavaScript associé à Node.js.
+    # Outil de gestion de version pour le suivi et le partage du code source.
+    git \
+    # Outil en ligne de commande pour effectuer des requêtes HTTP.
+    curl \
+    # Bibliothèque pour les fonctionnalités d'internationalisation.
+    libicu-dev \
+    # Bibliothèque nécessaire pour le support des expressions régulières dans PHP (utilisée avec `mbstring`).
+    libonig-dev \
+    # Bibliothèque pour la manipulation des fichiers ZIP, essentielle pour les projets PHP modernes.
+    libzip-dev \
+    # Utilisé pour extraire des fichiers ZIP.
+    unzip \
+    # Utilisé pour créer des fichiers ZIP.
+    zip \
+    # Plateforme JavaScript côté serveur (utilisée par Webpack Encore ou des outils JS dans Symfony).
+    nodejs \
+    # Gestionnaire de paquets JavaScript associé à Node.js.
+    npm
+
 
 # Installe les extensions PHP nécessaires pour le projet Symfony.
 RUN docker-php-ext-install intl pdo pdo_mysql mbstring zip opcache
