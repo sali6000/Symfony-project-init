@@ -1,47 +1,60 @@
+# Ce fichier docker-compose.yaml orchestre tous les services nécessaires à une application Symfony complète : 
+# -> un conteneur PHP pour le back-end, MySQL pour les données, Nginx pour servir les requêtes, et PhpMyAdmin pour l'administration des bases. 
+# Grâce à Docker, tout est isolé et portable, simplifiant le développement et la gestion du projet.
+
 services:
-  # Service PHP
+  # Service PHP : Définit un conteneur pour exécuter le code PHP.
   php:
-    build: .
+    build: .  # Construit l'image Docker à partir du fichier Dockerfile situé dans le répertoire courant.
     volumes:
-      - ./app:/var/www/html
+      - ./app:/var/www/html  # Monte le dossier local 'app' dans le conteneur sous '/var/www/html' pour partager le code source.
     networks:
-      - symfony
+      - symfony  # Connecte ce service au réseau Docker nommé 'symfony'.
 
-  # Service MySQL
+  # Service MySQL : Fournit une base de données MySQL pour stocker les données de l'application.
   mysql:
-    image: mysql:8.0.39
-    environment:
-      MYSQL_ROOT_PASSWORD: rootpassword
-      MYSQL_DATABASE: bevente_db
-      MYSQL_USER: user
-      MYSQL_PASSWORD: userpassword
+    image: mysql:8.0.39  # Utilise l'image officielle MySQL version 8.0.39.
+    environment:  # Définit les variables d'environnement pour configurer la base de données.
+      MYSQL_ROOT_PASSWORD: rootpassword  # Mot de passe pour l'utilisateur root (administrateur de la base).
+      MYSQL_DATABASE: bevente_db         # Crée une base de données nommée 'bevente_db'.
+      MYSQL_USER: user                   # Ajoute un utilisateur de base de données nommé 'user'.
+      MYSQL_PASSWORD: userpassword       # Définit le mot de passe pour l'utilisateur 'user'.
     volumes:
-      - db_data:/var/lib/mysql
+      - db_data:/var/lib/mysql  # Stocke les données de la base dans un volume nommé 'db_data' pour la persistance.
     networks:
-      - symfony
+      - symfony  # Connecte ce service au réseau 'symfony'.
 
-  # Service Nginx
+  # Service Nginx : Configure un serveur web pour traiter les requêtes HTTP et les transmettre à PHP.
   nginx:
-    image: nginx:alpine
+    image: nginx:alpine  # Utilise l'image officielle Nginx en version légère (alpine).
     volumes:
-      - ./docker/nginx/conf.d/default.conf:/etc/nginx/conf.d/default.conf  # Notez bien l'emplacement ici
+      - ./docker/nginx/conf.d/default.conf:/etc/nginx/conf.d/default.conf
+        # Monte le fichier de configuration local 'default.conf' dans le conteneur Nginx.
     ports:
-      - "8080:80"
+      - "8080:80"  # Expose le port 80 du conteneur sur le port 8080 de la machine hôte.
     networks:
-      - symfony
+      - symfony  # Connecte ce service au réseau 'symfony'.
     depends_on:
-      - php
+      - php  # Assure que le conteneur PHP est prêt avant de démarrer ce service.
 
-  # Service PhpMyAdmin
+  # Service PhpMyAdmin : Interface web pour gérer visuellement la base de données MySQL.
   phpmyadmin:
-    image: phpmyadmin/phpmyadmin
-    environment:
-      PMA_HOST: mysql
-      MYSQL_ROOT_PASSWORD: rootpassword
+    image: phpmyadmin/phpmyadmin  # Utilise l'image officielle PhpMyAdmin.
+    environment:  # Définit les variables d'environnement pour PhpMyAdmin.
+      PMA_HOST: mysql  # Indique que le service MySQL est l'hôte de la base de données.
+      MYSQL_ROOT_PASSWORD: rootpassword  # Mot de passe root pour accéder à toutes les bases de données.
     ports:
-      - "8081:80"
+      - "8081:80"  # Expose le port 80 du conteneur sur le port 8081 de la machine hôte.
     networks:
-      - symfony
+      - symfony  # Connecte ce service au réseau 'symfony'.
+
+# Déclare un réseau Docker personnalisé pour permettre aux services de communiquer entre eux.
+networks:
+  symfony:
+
+# Déclare un volume Docker pour stocker les données MySQL et les rendre persistantes.
+volumes:
+  db_data:
 
 networks:
   symfony:
