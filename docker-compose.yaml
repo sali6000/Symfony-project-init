@@ -55,9 +55,3 @@ networks:
 # Déclare un volume Docker pour stocker les données MySQL et les rendre persistantes.
 volumes:
   db_data:
-
-networks:
-  symfony:
-
-volumes:
-  db_data:
