@@ -33,7 +33,7 @@ services:
       - certs:/etc/ssl/mkcert  
         # Ce volume est partagé avec le conteneur PHP
     ports:
-      - "8080:80"  # Expose le port 80 du conteneur sur le port 8080 de la machine hôte.
+      - "443:443"  # Expose le port 80 du conteneur sur le port 8080 de la machine hôte.
     networks:
       - symfony  # Connecte ce service au réseau 'symfony'.
     depends_on:
