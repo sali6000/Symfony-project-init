@@ -45,6 +45,16 @@ RUN curl -sS https://get.symfony.com/cli/installer | bash - \
 # Ajoute Composer (gestionnaire de dépendances PHP) depuis l'image officielle "composer".
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
+# Installe mkcert pour gérer les certificats SSL
+RUN curl -JLO "https://dl.filippo.io/mkcert/latest?for=linux/amd64" \
+    && chmod +x mkcert-v*-linux-amd64 \
+    && mv mkcert-v*-linux-amd64 /usr/local/bin/mkcert \
+    && mkcert -install
+
+# Crée des certificats SSL auto-signés pour le développement local
+RUN mkdir -p /etc/ssl/mkcert \
+    && mkcert -key-file /etc/ssl/mkcert/localhost-key.pem -cert-file /etc/ssl/mkcert/localhost.pem localhost 127.0.0.1 ::1
+
 # Fixe un problème potentiel avec les permissions des fichiers lors de l'utilisation de Git dans les conteneurs.
 RUN git config --global --add safe.directory /var/www/html
 
