@@ -34,7 +34,7 @@ services:
       - certs:/etc/ssl/mkcert  # Ce volume est partagé avec le conteneur PHP
         # Monte le fichier de configuration local 'default.conf' dans le conteneur Nginx.
     ports:
-      - "443:443"  # Expose le port 80 du conteneur sur le port 8080 de la machine hôte.
+      - "443:443"  # Expose le port 443 du conteneur sur le port 443 de la machine hôte.
     networks:
       - symfony  # Connecte ce service au réseau 'symfony'.
     depends_on:
