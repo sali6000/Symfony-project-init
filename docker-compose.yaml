@@ -57,7 +57,5 @@ networks:
 
 # Déclare un volume Docker pour stocker les données MySQL et les rendre persistantes.
 volumes:
-  db_data:
-
-volumes:
-  certs:  # Défini un volume persistant pour les certificats
+  db_data:  # Déclare un volume pour MySQL
+  certs:    # Déclare un volume pour les certificats
