@@ -1,7 +1,6 @@
 # Ce fichier docker-compose.yaml orchestre tous les services nécessaires à une application Symfony complète : 
 # -> un conteneur PHP pour le back-end, MySQL pour les données, Nginx pour servir les requêtes, et PhpMyAdmin pour l'administration des bases. 
 # Grâce à Docker, tout est isolé et portable, simplifiant le développement et la gestion du projet.
-
 services:
   # Service PHP : Définit un conteneur pour exécuter le code PHP.
   php:
