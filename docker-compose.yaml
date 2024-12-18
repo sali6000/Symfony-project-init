@@ -29,7 +29,6 @@ services:
   nginx:
     image: nginx:alpine  # Utilise l'image officielle Nginx en version légère (alpine).
     volumes:
-      - ./app/public:/var/www/html/public
       - ./docker/nginx/conf.d/default.conf:/etc/nginx/conf.d/default.conf
       - certs:/etc/ssl/mkcert  # Ce volume est partagé avec le conteneur PHP
         # Monte le fichier de configuration local 'default.conf' dans le conteneur Nginx.
