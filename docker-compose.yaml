@@ -8,6 +8,7 @@ services:
     build: .  # Construit l'image Docker à partir du fichier Dockerfile situé dans le répertoire courant.
     volumes:
       - ./app:/var/www/html  # Monte le dossier local 'app' dans le conteneur sous '/var/www/html' pour partager le code source.
+      - certs:/etc/ssl/mkcert  # Monte le volume contenant les certificats
     networks:
       - symfony  # Connecte ce service au réseau Docker nommé 'symfony'.
 
@@ -30,6 +31,8 @@ services:
     volumes:
       - ./docker/nginx/conf.d/default.conf:/etc/nginx/conf.d/default.conf
         # Monte le fichier de configuration local 'default.conf' dans le conteneur Nginx.
+      - certs:/etc/ssl/mkcert  
+        # Ce volume est partagé avec le conteneur PHP
     ports:
       - "8080:80"  # Expose le port 80 du conteneur sur le port 8080 de la machine hôte.
     networks:
@@ -55,3 +58,7 @@ networks:
 # Déclare un volume Docker pour stocker les données MySQL et les rendre persistantes.
 volumes:
   db_data:
+
+# Défini un volume persistant pour les certificats
+ volumes:
+  certs: 
