@@ -16,7 +16,6 @@ services:
     build:
       context: .
       dockerfile: Dockerfile-nextjs
-    container_name: nextjs
     volumes:
       - ./nextjs:/var/www/html
     ports:
