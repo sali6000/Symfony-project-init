@@ -1,0 +1,8 @@
+# Dockerfile
+FROM node:20
+
+# Définir le répertoire de travail
+WORKDIR /var/www/html
+
+# Exposer les ports nécessaires
+EXPOSE 3000
