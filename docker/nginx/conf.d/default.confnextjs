@@ -1,0 +1,46 @@
+# Serveur HTTPS (Next.js & Symfony)
+server {
+    listen 443 ssl;
+    server_name localhost;
+
+    # Certificats SSL
+    ssl_certificate /etc/ssl/mkcert/localhost.pem;
+    ssl_certificate_key /etc/ssl/mkcert/localhost-key.pem;
+
+    
+    # Définit le répertoire racine où les fichiers de l'application seront accessibles.
+    # "public" est généralement le dossier où se trouve le fichier "index.php" pour Symfony.
+    root /var/www/html/public;
+
+    # Next.js - Frontend
+    location / {
+        proxy_pass http://node:3000; # Utilise le nom du service Docker pour Next.js
+        proxy_http_version 1.1;
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection 'upgrade';
+        proxy_set_header Host $host;
+        proxy_cache_bypass $http_upgrade;
+    }
+
+    # Symfony - Backend API
+    location /api {
+        fastcgi_pass php:9000;
+    include fastcgi_params;
+    fastcgi_param SCRIPT_FILENAME $document_root/index.php;
+    fastcgi_param PATH_INFO $fastcgi_path_info;
+    }
+
+    # Bloque l'accès aux fichiers cachés (sécurité)
+    location ~ /\.ht {
+        deny all;
+    }
+}
+
+# Serveur HTTP (redirection vers HTTPS)
+server {
+    listen 80;
+    server_name localhost;
+
+    # Redirection de toutes les requêtes HTTP vers HTTPS
+    return 301 https://$host$request_uri;
+}
