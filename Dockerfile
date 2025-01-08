@@ -3,7 +3,8 @@
 # et configure un environnement stable pour traiter les requêtes PHP via PHP-FPM.
 
 # Utilise l'image officielle PHP avec PHP-FPM (FastCGI Process Manager) pour exécuter des applications PHP.
-FROM php:8.3-fpm
+FROM php:latest
+# La construction des configurations et prévisualisations du projet est réalisé sur php::8.3-fpm
 
 # Met à jour les paquets existants et installe les dépendances nécessaires à l'environnement du projet.
 RUN apt-get update && apt-get install -y \
