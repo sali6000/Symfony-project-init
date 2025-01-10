@@ -27,8 +27,9 @@ RUN apt-get update && apt-get install -y \
     # Gestionnaire de paquets JavaScript associé à Node.js.
     npm \
     # Gestionnaire de certificats SSL auto signés (non officielement reconnu)
-    libnss3-tools \
-    apt-get clean && rm -rf /var/lib/apt/lists/*
+    libnss3-tools && \
+    apt-get clean && \
+    rm -rf /var/lib/apt/lists/*
 
 # Installe Yarn via npm
 RUN npm install --global yarn
