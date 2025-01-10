@@ -28,8 +28,10 @@ RUN apt-get update && apt-get install -y \
     npm \
     # Gestionnaire de certificats SSL auto signés (non officielement reconnu)
     libnss3-tools \
-    # Installe Yarn via npm (car ce n'est pas un paquet apt-get)
-    npm install --global yarn
+    apt-get clean && rm -rf /var/lib/apt/lists/*
+
+# Installe Yarn via npm
+RUN npm install --global yarn
 
 # Installe les extensions PHP nécessaires pour le projet Symfony.
 RUN docker-php-ext-install intl pdo pdo_mysql mbstring zip opcache
