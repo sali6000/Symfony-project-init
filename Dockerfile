@@ -43,8 +43,8 @@ RUN docker-php-ext-install intl pdo pdo_mysql mbstring zip opcache
     # opcache : Accélère les performances PHP en mettant en cache les scripts compilés.
 
 # Installe l'outil Symfony CLI pour gérer les projets Symfony.
-RUN curl -sS https://get.symfony.com/cli/installer | bash - \
-    && mv /root/.symfony*/bin/symfony /usr/local/bin/symfony
+# RUN curl -sS https://get.symfony.com/cli/installer | bash - \
+    # && mv /root/.symfony*/bin/symfony /usr/local/bin/symfony
     # Télécharge et installe Symfony CLI.
     # Déplace l'exécutable dans un répertoire accessible globalement.
 
